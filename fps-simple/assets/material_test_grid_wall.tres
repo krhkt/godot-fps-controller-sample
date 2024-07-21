@@ -1,0 +1,18 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://sxbc5iqv33t"]
+
+[sub_resource type="Gradient" id="Gradient_0k8pv"]
+interpolation_mode = 1
+colors = PackedColorArray(0.341176, 0.364706, 0.6, 0.729412, 0.1015, 0.114067, 0.29, 0.631373)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ga4xo"]
+gradient = SubResource("Gradient_0k8pv")
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.025, 0.025)
+
+[resource]
+albedo_color = Color(0.774805, 0.7719, 0.83, 1)
+albedo_texture = SubResource("GradientTexture2D_ga4xo")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true

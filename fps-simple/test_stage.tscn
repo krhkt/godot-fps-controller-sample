@@ -1,0 +1,246 @@
+[gd_scene load_steps=24 format=3 uid="uid://d14wn7iabulvl"]
+
+[ext_resource type="Material" uid="uid://cisg6v7w2xspd" path="res://assets/material_test_grid_floor.tres" id="1_7vryl"]
+[ext_resource type="Material" uid="uid://sxbc5iqv33t" path="res://assets/material_test_grid_wall.tres" id="2_kcdq5"]
+[ext_resource type="Material" uid="uid://drxgaaolnp7f6" path="res://assets/material_test_grid_platforms.tres" id="3_2i6kj"]
+[ext_resource type="PackedScene" uid="uid://n2i4cd627l4y" path="res://player.tscn" id="4_72dv8"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_nymn7"]
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxMesh" id="BoxMesh_6vl4c"]
+material = ExtResource("1_7vryl")
+size = Vector3(100, 1, 100)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_7si1m"]
+size = Vector3(100, 20, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_omgjy"]
+material = ExtResource("2_kcdq5")
+size = Vector3(100, 20, 1)
+
+[sub_resource type="Gradient" id="Gradient_vpm8j"]
+interpolation_mode = 1
+colors = PackedColorArray(0.1908, 0.2756, 0.53, 0.145098, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_sksqa"]
+gradient = SubResource("Gradient_vpm8j")
+width = 100
+height = 100
+fill = 2
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.05, 0.05)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vidcw"]
+albedo_color = Color(0.18684, 0.1809, 0.27, 1)
+albedo_texture = SubResource("GradientTexture2D_sksqa")
+uv1_scale = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+uv1_world_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_1nnn4"]
+material = SubResource("StandardMaterial3D_vidcw")
+size = Vector3(100, 1, 100)
+
+[sub_resource type="PrismMesh" id="PrismMesh_gvbin"]
+material = ExtResource("1_7vryl")
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_q7ysu"]
+margin = 0.1
+points = PackedVector3Array(-5, -1, -3, 0.015, 0.942, 2.826, 0.074, 0.706, 2.826, -5, -1, 3, 5, -1, -3, -0.015, 0.942, -2.826, 5, -1, 3, -0.015, 0.942, 2.826, 0.015, 0.942, -2.826)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ue7p8"]
+size = Vector3(9.9791, 1.97253, 0.205811)
+
+[sub_resource type="BoxMesh" id="BoxMesh_fmwkr"]
+material = ExtResource("3_2i6kj")
+size = Vector3(4, 1, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_afq16"]
+size = Vector3(4, 1, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1nynp"]
+material = ExtResource("3_2i6kj")
+size = Vector3(8, 3, 8)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_67a14"]
+points = PackedVector3Array(3.77979, 1.5, 3.77979, -3.90172, -1.5, -3.90172, -3.90172, -1.5, 3.90172, 3.90172, -1.5, -3.90172, -3.77979, 1.5, -3.77979, 3.90172, -1.5, 3.90172, -3.77979, 1.5, 3.77979, 3.77979, 1.5, -3.77979)
+
+[sub_resource type="Gradient" id="Gradient_prmhk"]
+colors = PackedColorArray(0.0352941, 0, 0.184314, 0.384314, 0.0352941, 0, 0.184314, 0.384314)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nebvj"]
+gradient = SubResource("Gradient_prmhk")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yokjc"]
+texture = SubResource("GradientTexture2D_nebvj")
+
+[sub_resource type="LabelSettings" id="LabelSettings_n2wb3"]
+font_color = Color(1, 1, 1, 0.631373)
+
+[node name="TestStage" type="Node3D"]
+
+[node name="Gameplay" type="Node3D" parent="."]
+
+[node name="LevelGeo" type="Node3D" parent="Gameplay"]
+
+[node name="DirectLight2" type="DirectionalLight3D" parent="Gameplay/LevelGeo"]
+transform = Transform3D(0.573223, -0.772693, 0.272693, -0.353553, 0.0669884, 0.933013, -0.739199, -0.631236, -0.234789, 44.7332, 40.9222, 33.383)
+directional_shadow_mode = 0
+
+[node name="DirectLight" type="DirectionalLight3D" parent="Gameplay/LevelGeo"]
+transform = Transform3D(0.908508, 0.295477, -0.295477, 0, 0.707107, 0.707107, 0.417867, -0.642412, 0.642412, -43.9471, 11.0522, 31.1053)
+directional_shadow_mode = 0
+
+[node name="MainLight" type="OmniLight3D" parent="Gameplay/LevelGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12, 0)
+light_energy = 4.0
+omni_range = 100.0
+omni_attenuation = 0.329877
+
+[node name="Floor" type="StaticBody3D" parent="Gameplay/LevelGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/LevelGeo/Floor"]
+shape = SubResource("BoxShape3D_nymn7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/LevelGeo/Floor"]
+mesh = SubResource("BoxMesh_6vl4c")
+
+[node name="WallZ" type="StaticBody3D" parent="Gameplay/LevelGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/LevelGeo/WallZ"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+shape = SubResource("BoxShape3D_7si1m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/LevelGeo/WallZ"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+mesh = SubResource("BoxMesh_omgjy")
+
+[node name="WallZ2" type="StaticBody3D" parent="Gameplay/LevelGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/LevelGeo/WallZ2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+shape = SubResource("BoxShape3D_7si1m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/LevelGeo/WallZ2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+mesh = SubResource("BoxMesh_omgjy")
+
+[node name="WallX" type="StaticBody3D" parent="Gameplay/LevelGeo"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 50, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/LevelGeo/WallX"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+shape = SubResource("BoxShape3D_7si1m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/LevelGeo/WallX"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+mesh = SubResource("BoxMesh_omgjy")
+
+[node name="WallX2" type="StaticBody3D" parent="Gameplay/LevelGeo"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -50, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/LevelGeo/WallX2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+shape = SubResource("BoxShape3D_7si1m")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/LevelGeo/WallX2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
+mesh = SubResource("BoxMesh_omgjy")
+
+[node name="Roof" type="StaticBody3D" parent="Gameplay/LevelGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.5, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/LevelGeo/Roof"]
+shape = SubResource("BoxShape3D_nymn7")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/LevelGeo/Roof"]
+mesh = SubResource("BoxMesh_1nnn4")
+
+[node name="Ramp" type="StaticBody3D" parent="Gameplay/LevelGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.0547, 1, 14.983)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/LevelGeo/Ramp"]
+transform = Transform3D(10, 0, 0, 0, 2, 0, 0, 0, 6, 0, 0, 0)
+mesh = SubResource("PrismMesh_gvbin")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/LevelGeo/Ramp"]
+shape = SubResource("ConvexPolygonShape3D_q7ysu")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Gameplay/LevelGeo/Ramp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0275726, -0.0142212, -3.09325)
+shape = SubResource("BoxShape3D_ue7p8")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="Gameplay/LevelGeo/Ramp"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0328064, -0.0142212, 3.08885)
+shape = SubResource("BoxShape3D_ue7p8")
+
+[node name="ElevationB" type="StaticBody3D" parent="Gameplay/LevelGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.5, 6)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/LevelGeo/ElevationB"]
+mesh = SubResource("BoxMesh_fmwkr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/LevelGeo/ElevationB"]
+shape = SubResource("BoxShape3D_afq16")
+
+[node name="ElevationA" type="StaticBody3D" parent="Gameplay/LevelGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 14)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/LevelGeo/ElevationA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_1nynp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/LevelGeo/ElevationA"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("ConvexPolygonShape3D_67a14")
+
+[node name="PlatformA" type="StaticBody3D" parent="Gameplay/LevelGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.5, 2.5, 15)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/LevelGeo/PlatformA"]
+mesh = SubResource("BoxMesh_fmwkr")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/LevelGeo/PlatformA"]
+shape = SubResource("BoxShape3D_afq16")
+
+[node name="Player" parent="Gameplay" instance=ExtResource("4_72dv8")]
+transform = Transform3D(-0.869495, 0, 0.493942, 0, 1, 0, -0.493942, 0, -0.869495, 0, 0.2, 0)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_yokjc")
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer"]
+layout_mode = 2
+text = "RightStick: Movement | LeftStick: Camera | LB: toggle run | RB: jump"
+label_settings = SubResource("LabelSettings_n2wb3")

@@ -1,0 +1,87 @@
+[gd_scene load_steps=14 format=3 uid="uid://uok0sv42638u"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_8s7yn"]
+[ext_resource type="Script" path="res://scripts/player_movement_data.gd" id="2_dkeqt"]
+[ext_resource type="PackedScene" uid="uid://n6jdr231jhdx" path="res://crosshair.tscn" id="2_lgcpd"]
+[ext_resource type="Script" path="res://states/player_state_machine.gd" id="3_h70tx"]
+[ext_resource type="Script" path="res://states/idle_state.gd" id="4_n4myx"]
+[ext_resource type="Script" path="res://states/walk_state.gd" id="5_uaf2c"]
+[ext_resource type="Script" path="res://states/running_state.gd" id="6_0vkqn"]
+[ext_resource type="Script" path="res://states/jump_state.gd" id="7_0gkm3"]
+[ext_resource type="Script" path="res://states/fall_state.gd" id="8_8w8aa"]
+
+[sub_resource type="Resource" id="Resource_loq0w"]
+script = ExtResource("2_dkeqt")
+speed = 0.0
+acceleration = 1.0
+deceleration = 1.0
+top_speed = 0.0
+terminal_velocity = 20.0
+jump_velocity = 0.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_el144"]
+height = 1.8
+
+[sub_resource type="Resource" id="Resource_l1c5i"]
+script = ExtResource("2_dkeqt")
+speed = 400.0
+acceleration = 1.0
+deceleration = 5.0
+top_speed = 320.0
+terminal_velocity = 20.0
+jump_velocity = 8.0
+
+[sub_resource type="Resource" id="Resource_1aqi7"]
+script = ExtResource("2_dkeqt")
+speed = 680.0
+acceleration = 1.0
+deceleration = 4.0
+top_speed = 500.0
+terminal_velocity = 20.0
+jump_velocity = 16.0
+
+[node name="StatesPlayer" type="CharacterBody3D"]
+script = ExtResource("1_8s7yn")
+movement_data = SubResource("Resource_loq0w")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CylinderShape3D_el144")
+
+[node name="PlayerCamera" type="Camera3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="Crosshair" parent="PlayerCamera" instance=ExtResource("2_lgcpd")]
+
+[node name="PlayerStateMachine" type="Node3D" parent="." node_paths=PackedStringArray("player", "idle_state", "walk_state", "running_state", "jump_state", "fall_state")]
+unique_name_in_owner = true
+script = ExtResource("3_h70tx")
+player = NodePath("..")
+idle_state = NodePath("IdleState")
+walk_state = NodePath("WalkState")
+running_state = NodePath("RunningState")
+jump_state = NodePath("JumpState")
+fall_state = NodePath("FallState")
+
+[node name="IdleState" type="Node3D" parent="PlayerStateMachine" node_paths=PackedStringArray("state_machine")]
+script = ExtResource("4_n4myx")
+state_machine = NodePath("..")
+
+[node name="WalkState" type="Node3D" parent="PlayerStateMachine" node_paths=PackedStringArray("state_machine")]
+script = ExtResource("5_uaf2c")
+movement_data = SubResource("Resource_l1c5i")
+state_machine = NodePath("..")
+
+[node name="RunningState" type="Node3D" parent="PlayerStateMachine" node_paths=PackedStringArray("state_machine")]
+script = ExtResource("6_0vkqn")
+movement_data = SubResource("Resource_1aqi7")
+state_machine = NodePath("..")
+
+[node name="JumpState" type="Node3D" parent="PlayerStateMachine" node_paths=PackedStringArray("state_machine")]
+script = ExtResource("7_0gkm3")
+state_machine = NodePath("..")
+
+[node name="FallState" type="Node3D" parent="PlayerStateMachine" node_paths=PackedStringArray("state_machine")]
+script = ExtResource("8_8w8aa")
+state_machine = NodePath("..")

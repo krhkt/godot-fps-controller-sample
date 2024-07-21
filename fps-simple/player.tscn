@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://n2i4cd627l4y"]
+
+[ext_resource type="Script" path="res://player.gd" id="1_wjj2j"]
+[ext_resource type="PackedScene" uid="uid://n6jdr231jhdx" path="res://crosshair.tscn" id="2_o8kuv"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_el144"]
+height = 1.8
+
+[node name="Player" type="CharacterBody3D"]
+script = ExtResource("1_wjj2j")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9, 0)
+shape = SubResource("CylinderShape3D_el144")
+
+[node name="PlayerCamera" type="Camera3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 0)
+
+[node name="Crosshair" parent="PlayerCamera" instance=ExtResource("2_o8kuv")]
