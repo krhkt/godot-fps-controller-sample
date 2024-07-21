@@ -22,4 +22,4 @@
 
 - State Machine:
     - only one state can be active at a time
-    - state transition in each state before enter and before exit
+    - state transition is validated in each state before enter and before exit
