@@ -6,9 +6,9 @@ extends PlayerBaseState
 
 func can_enter_from(_from: State) -> bool:
 	return (
-		input_source.has_movement_input()
-		and player.is_on_floor() 
-		and (not input_source.is_run_pressed)
+			input_source.has_movement_input()
+			and player.is_on_floor() 
+			and (not input_source.is_run_pressed)
 	)
 
 

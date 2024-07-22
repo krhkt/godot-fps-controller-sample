@@ -40,13 +40,13 @@ func update_state_name() -> void:
 ## Quit the game
 func _unhandled_input(event: InputEvent) -> void:
 	var is_esc: bool = (
-		event is InputEventKey
-		and event.keycode == Key.KEY_ESCAPE
+			event is InputEventKey
+			and event.keycode == Key.KEY_ESCAPE
 	)
 	var is_start: bool = (
-		not is_esc
-		and event is InputEventJoypadButton 
-		and event.button_index == JoyButton.JOY_BUTTON_START
+			not is_esc
+			and event is InputEventJoypadButton 
+			and event.button_index == JoyButton.JOY_BUTTON_START
 	)
 	
 	if is_esc or is_start:

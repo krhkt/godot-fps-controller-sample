@@ -77,8 +77,7 @@ func _input(event: InputEvent) -> void:
 	if input_scheme_in_use == InputType.KeyboardMouse and event is InputEventMouseMotion:
 		_read_look_around_input_from_mouse(event)
 	
-	if input_type != InputType.AutoDetect:
-		return
+	if input_type != InputType.AutoDetect: return
 	
 	var old_input_scheme := input_scheme_in_use
 	if event is InputEventKey:
@@ -131,9 +130,9 @@ func _get_is_mouse_captured() -> bool:
 #region [ Input process ]
 func _read_direction_input() -> void:
 	var input_axis: Vector2 = Input.get_vector(
-		ACTION_STRAFE_LEFT, ACTION_STRAFE_RIGHT, 
-		ACTION_MOVE_FORWARD, ACTION_MOVE_BACKWARD,
-		input_axis_deadzone
+			ACTION_STRAFE_LEFT, ACTION_STRAFE_RIGHT, 
+			ACTION_MOVE_FORWARD, ACTION_MOVE_BACKWARD,
+			input_axis_deadzone
 	)
 	movement_direction = Vector3(input_axis.x, 0, input_axis.y)
 
@@ -144,15 +143,15 @@ func _read_look_around_input() -> void:
 		return
 	
 	look_direction = Input.get_vector(
-		ACTION_LOOK_LEFT, ACTION_LOOK_RIGHT,
-		ACTION_LOOK_UP, ACTION_LOOK_DOWN,
-		0.1
+			ACTION_LOOK_LEFT, ACTION_LOOK_RIGHT,
+			ACTION_LOOK_UP, ACTION_LOOK_DOWN,
+			0.1
 	) * controller_camera_speed / 10.0
 	
 	# applying axis inversions
 	look_direction *= Vector2(
-		-look_horizontal_axis_direction,
-		-look_vertical_axis_direction
+			-look_horizontal_axis_direction,
+			-look_vertical_axis_direction
 	)
 
 
