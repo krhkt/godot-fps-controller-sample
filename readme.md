@@ -10,7 +10,7 @@
 ### Input Source + State FPS
 
 - input schemes supported: controller / Keyboard and Mouse
-- Input source: abstraction of how the input in handled and calculated
+- Input source: abstraction of how the input is handled and calculated
 - Player states:
     - each state validates the pre-conditions to be active
     - not much of player movement logic changes per state
@@ -22,4 +22,4 @@
 
 - State Machine:
     - only one state can be active at a time
-    - state transition in each state before enter and before exit
+    - state transition is validated in each state before enter and before exit
