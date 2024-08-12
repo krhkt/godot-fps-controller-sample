@@ -1,0 +1,394 @@
+[gd_scene load_steps=15 format=3 uid="uid://ba5b26rq3e3de"]
+
+[ext_resource type="Script" path="res://game_ui.gd" id="1_8aax4"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d6mf6"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(0, 0, 0, 0.847059)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 6
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_elmfx"]
+content_margin_left = 8.0
+content_margin_top = 2.0
+content_margin_right = 8.0
+content_margin_bottom = 2.0
+bg_color = Color(0.0430392, 0.0430392, 0.0430391, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[sub_resource type="Theme" id="Theme_k3ixm"]
+HSlider/styles/slider = SubResource("StyleBoxFlat_d6mf6")
+OptionButton/constants/h_separation = 4
+OptionButton/constants/outline_size = 0
+OptionButton/styles/normal = SubResource("StyleBoxFlat_elmfx")
+
+[sub_resource type="Gradient" id="Gradient_8khir"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0.466667)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_a3omo"]
+gradient = SubResource("Gradient_8khir")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_s11g2"]
+bg_color = Color(0.098555, 0.0946897, 0.134349, 0.819608)
+
+[sub_resource type="StyleBoxLine" id="StyleBoxLine_438qq"]
+color = Color(0.487423, 0.4806, 0.89, 0.101961)
+thickness = 2
+
+[sub_resource type="GDScript" id="GDScript_bsrxw"]
+script/source = "extends HBoxContainer
+
+@onready var current_value = $CurrentValue
+
+
+func _on_controller_camera_slider_value_changed(value: float) -> void:
+	current_value.text = str(value)
+"
+
+[sub_resource type="GDScript" id="GDScript_w8fi1"]
+script/source = "extends HBoxContainer
+
+@onready var current_value = $CurrentValue
+
+
+func _on_mouse_sensitivity_value_changed(value: float) -> void:
+	current_value.text = str(value)
+"
+
+[sub_resource type="Gradient" id="Gradient_prmhk"]
+colors = PackedColorArray(0.0352941, 0, 0.184314, 0.384314, 0.0352941, 0, 0.184314, 0.384314)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_nebvj"]
+gradient = SubResource("Gradient_prmhk")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yokjc"]
+texture = SubResource("GradientTexture2D_nebvj")
+
+[sub_resource type="LabelSettings" id="LabelSettings_n2wb3"]
+font_color = Color(1, 1, 1, 0.631373)
+
+[node name="GameUi" type="CanvasLayer"]
+script = ExtResource("1_8aax4")
+
+[node name="ControlSettings" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_k3ixm")
+
+[node name="Backdrop" type="TextureRect" parent="ControlSettings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture2D_a3omo")
+
+[node name="SettingsContainer" type="MarginContainer" parent="ControlSettings"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 24.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 72
+theme_override_constants/margin_top = 24
+theme_override_constants/margin_right = 72
+theme_override_constants/margin_bottom = 64
+
+[node name="Panel" type="Panel" parent="ControlSettings/SettingsContainer"]
+custom_minimum_size = Vector2(768, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_styles/panel = SubResource("StyleBoxFlat_s11g2")
+
+[node name="SettingsMargin" type="MarginContainer" parent="ControlSettings/SettingsContainer/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ContentsContainer" type="VBoxContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HeaderMargin" type="MarginContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 0
+
+[node name="HeaderContainer" type="HBoxContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/HeaderMargin"]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/HeaderMargin/HeaderContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "SETTINGS"
+
+[node name="CloseButton" type="Button" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/HeaderMargin/HeaderContainer"]
+custom_minimum_size = Vector2(42, 42)
+layout_mode = 2
+focus_mode = 1
+theme_override_font_sizes/font_size = 24
+shortcut_feedback = false
+shortcut_in_tooltip = false
+text = " ⨯ "
+
+[node name="HSeparator" type="HSeparator" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_438qq")
+
+[node name="BodyMargin" type="MarginContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="SettingsBodyContainer" type="VBoxContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="InputTypeContainer" type="VBoxContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="FieldLabel" type="Label" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/InputTypeContainer"]
+layout_mode = 2
+text = "Input Type"
+
+[node name="InputTypeValue" type="OptionButton" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/InputTypeContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+item_count = 3
+selected = 0
+popup/item_0/text = "Auto Detect"
+popup/item_0/id = 0
+popup/item_1/text = "Controller"
+popup/item_1/id = 1
+popup/item_2/text = "Mouse and Keyboard"
+popup/item_2/id = 2
+
+[node name="HSeparator" type="HSeparator" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_438qq")
+
+[node name="AxisContainer" type="VBoxContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="FieldLabel" type="Label" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/AxisContainer"]
+layout_mode = 2
+text = "Camera Axis Configuration
+"
+
+[node name="AxisSettingsContainer" type="GridContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/AxisContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/h_separation = 12
+theme_override_constants/v_separation = 16
+columns = 2
+
+[node name="FieldLabel" type="Label" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/AxisContainer/AxisSettingsContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Vertical Axis
+"
+horizontal_alignment = 2
+
+[node name="VerticalAxisValue" type="OptionButton" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/AxisContainer/AxisSettingsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 3
+selected = 1
+popup/item_0/text = "Default"
+popup/item_0/id = 1
+popup/item_1/text = "Inverterd"
+popup/item_1/id = 0
+popup/item_2/text = "Locked"
+popup/item_2/id = 0
+
+[node name="FieldLabel2" type="Label" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/AxisContainer/AxisSettingsContainer"]
+layout_mode = 2
+text = "Horizontal Axis
+"
+horizontal_alignment = 2
+
+[node name="HorizontalAxisValue" type="OptionButton" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/AxisContainer/AxisSettingsContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+item_count = 3
+selected = 1
+popup/item_0/text = "Default"
+popup/item_0/id = 1
+popup/item_1/text = "Inverterd"
+popup/item_1/id = 0
+popup/item_2/text = "Locked"
+popup/item_2/id = 0
+
+[node name="HSeparator2" type="HSeparator" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_438qq")
+
+[node name="ControllerCameraContainer" type="VBoxContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="FieldLabel" type="Label" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer"]
+layout_mode = 2
+text = "Controller Camera Sensitivity"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+script = SubResource("GDScript_bsrxw")
+
+[node name="ControllerCameraSpeedValue" type="HSlider" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+size_flags_vertical = 4
+min_value = 0.1
+max_value = 2.1
+step = 0.1
+value = 1.1
+
+[node name="CurrentValue" type="Label" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/HBoxContainer"]
+layout_mode = 2
+text = "1"
+
+[node name="Button" type="Button" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Interactive adjustment...
+"
+
+[node name="HSeparator3" type="HSeparator" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_438qq")
+
+[node name="MouseSensitivityContainer" type="VBoxContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+
+[node name="FieldLabel" type="Label" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer"]
+layout_mode = 2
+text = "Mouse Sensitivity"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer"]
+layout_mode = 2
+theme_override_constants/separation = 16
+script = SubResource("GDScript_w8fi1")
+
+[node name="MouseSensitivityValue" type="HSlider" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(320, 0)
+layout_mode = 2
+size_flags_vertical = 4
+min_value = 0.5
+max_value = 50.0
+step = 0.5
+value = 5.0
+
+[node name="CurrentValue" type="Label" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+text = "Interactive adjustment...
+"
+
+[node name="HSeparator4" type="HSeparator" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer"]
+layout_mode = 2
+theme_override_styles/separator = SubResource("StyleBoxLine_438qq")
+
+[node name="QuitGameButton" type="Button" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer"]
+layout_mode = 2
+text = "QUIT GAME"
+
+[node name="ControlSchemes" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="ControlSchemes"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_styles/panel = SubResource("StyleBoxTexture_yokjc")
+
+[node name="MarginContainer" type="MarginContainer" parent="ControlSchemes/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlSchemes/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="SettingsControlsLabel" type="Label" parent="ControlSchemes/PanelContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "D-Pad: select options | A: confirm | B: cancel | [Start: Close Settings]"
+
+[node name="ControllerSchemeLabel" type="Label" parent="ControlSchemes/PanelContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "RightStick: movement | LeftStick: camera | LB: run | RB: jump | [START: settings]"
+label_settings = SubResource("LabelSettings_n2wb3")
+
+[node name="KbMouseSchemeLabel" type="Label" parent="ControlSchemes/PanelContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 2
+text = "WASD: movement | Mouse: camera | Shift: run | Space:  jump | [ESC: settings]"
+label_settings = SubResource("LabelSettings_n2wb3")
+
+[node name="VSeparator" type="VSeparator" parent="ControlSchemes/PanelContainer/MarginContainer/HBoxContainer"]
+modulate = Color(1, 1, 1, 0)
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StateNameDisplay" type="Label" parent="ControlSchemes/PanelContainer/MarginContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+
+[connection signal="pressed" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/HeaderMargin/HeaderContainer/CloseButton" to="." method="_on_close_button_pressed"]
+[connection signal="drag_ended" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/HBoxContainer/ControllerCameraSpeedValue" to="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/HBoxContainer" method="_on_controller_camera_slider_drag_ended"]
+[connection signal="value_changed" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/HBoxContainer/ControllerCameraSpeedValue" to="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/HBoxContainer" method="_on_controller_camera_slider_value_changed"]
+[connection signal="value_changed" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/HBoxContainer/MouseSensitivityValue" to="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/HBoxContainer" method="_on_mouse_sensitivity_value_changed"]
+[connection signal="pressed" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/QuitGameButton" to="." method="_on_quit_game_button_pressed"]

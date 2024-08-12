@@ -21,6 +21,7 @@ const ACTION_LOOK_LEFT = &"look_left"
 const ACTION_LOOK_RIGHT = &"look_right"
 const ACTION_JUMP = &"jump"
 const ACTION_RUN = &"run"
+const ACTION_SETTINGS = &"settings"
 
 ## Input type behavior: [br]
 ##   - [b]AutoDetect[/b]: will change between KBM and Controller based on input[br]
@@ -29,11 +30,11 @@ const ACTION_RUN = &"run"
 @export var input_type: InputType = InputType.AutoDetect
 
 ## The positive direction of horizontal axis of camera movement.
-@export_enum(&"Default:1", &"Inverted:-1")
+@export_enum(&"Default:1", &"Inverted:-1", &"Locked:0")
 var look_horizontal_axis_direction := 1
 
 ## The positive direction of vertical axis of camera movement.
-@export_enum(&"Default:1", &"Inverted:-1")
+@export_enum(&"Default:1", &"Inverted:-1", &"Locked:0")
 var look_vertical_axis_direction := 1
 
 ## Deadzone of the controller movement input: 
@@ -41,7 +42,8 @@ var look_vertical_axis_direction := 1
 @export var input_axis_deadzone := 0.25
 
 ## How fast the controller can move the camera.
-@export var controller_camera_speed := 1.2
+@export_range(.1, 2.0, 0.2)
+var controller_camera_speed := 0.5
 
 ## Sensitivity of mouse movement. The higher the number, the more sensible
 ## the movement is.
@@ -51,6 +53,7 @@ var mouse_sensitivity := 5.0
 ## Defines the acceleration curve that influences 
 ## how the horizontal velocity of the mouse movement should behave.
 @export var mouse_horizontal_acceleration_curve: Curve = null
+
 ## Defines the acceleration curve that influences 
 ## how the vertical velocity of the mouse movement should behave.
 @export var mouse_vertical_acceleration_curve: Curve = null
@@ -64,6 +67,7 @@ var look_direction := Vector2.ZERO
 var is_run_pressed := false
 var is_jump_pressed := false
 var frames_since_jump_last_pressed := -1.0
+var is_settings_just_pressed := false
 
 
 #region [ Godot API ]
@@ -89,11 +93,12 @@ func _input(event: InputEvent) -> void:
 		input_type_changed.emit(input_scheme_in_use)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	_read_look_around_input()
 	_read_direction_input()
 	_read_run()
 	_read_jump()
+	_read_settings()
 #endregion
 
 
@@ -190,4 +195,8 @@ func _read_jump() -> void:
 
 func _read_run() -> void:
 	is_run_pressed = Input.is_action_pressed(ACTION_RUN)
+
+
+func _read_settings() -> void:
+	is_settings_just_pressed = Input.is_action_just_pressed(ACTION_SETTINGS)
 #endregion

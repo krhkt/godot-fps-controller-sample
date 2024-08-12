@@ -1,57 +1,12 @@
-[gd_scene load_steps=28 format=3 uid="uid://ddqhkcg1i1vbk"]
+[gd_scene load_steps=25 format=3 uid="uid://ddqhkcg1i1vbk"]
 
 [ext_resource type="Material" uid="uid://cisg6v7w2xspd" path="res://assets/material_test_grid_floor.tres" id="1_fi7eu"]
+[ext_resource type="Script" path="res://scripts/level_manager_node.gd" id="1_ufg7y"]
 [ext_resource type="Material" uid="uid://sxbc5iqv33t" path="res://assets/material_test_grid_wall.tres" id="2_7gxap"]
 [ext_resource type="Material" uid="uid://drxgaaolnp7f6" path="res://assets/material_test_grid_platforms.tres" id="3_symbt"]
 [ext_resource type="PackedScene" uid="uid://uok0sv42638u" path="res://player.tscn" id="4_6hgyu"]
 [ext_resource type="Script" path="res://scripts/input_source.gd" id="5_iqajd"]
-
-[sub_resource type="GDScript" id="GDScript_qxl0n"]
-script/source = "extends Node3D
-
-@onready var player := $Gameplay/StatesPlayer as PlayerController
-@onready var controller_scheme_label := %ControllerSchemeLabel as Label
-@onready var kb_mouse_scheme_label := %KbMouseSchemeLabel as Label
-@onready var state_name_display := %StateNameDisplay as Label
-
-
-func _ready() -> void:
-	update_input_type(player.input_source.input_type)
-
-
-func _process(_delta: float) -> void:
-	update_state_name()
-
-
-func update_input_type(input_type: int) -> void:
-	kb_mouse_scheme_label.visible = false
-	controller_scheme_label.visible = false
-	
-	if input_type == InputSource.InputType.Controller:
-		controller_scheme_label.visible = true
-	else:
-		kb_mouse_scheme_label.visible = true
-
-
-func update_state_name() -> void:
-	state_name_display.text = \"(%s)\" % player.current_state_name
-
-
-## Quit the game
-func _unhandled_input(event: InputEvent) -> void:
-	var is_esc: bool = (
-			event is InputEventKey
-			and event.keycode == Key.KEY_ESCAPE
-	)
-	var is_start: bool = (
-			not is_esc
-			and event is InputEventJoypadButton 
-			and event.button_index == JoyButton.JOY_BUTTON_START
-	)
-	
-	if is_esc or is_start:
-		get_tree().quit()
-"
+[ext_resource type="PackedScene" uid="uid://ba5b26rq3e3de" path="res://game_ui.tscn" id="6_f4f27"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nymn7"]
 size = Vector3(100, 1, 100)
@@ -121,20 +76,8 @@ points = PackedVector3Array(-8, -1.5, -4, -8, 1.5, -4, 8, -1.5, -4, -8, -1.5, 4,
 _data = [Vector2(0, 0.186813), 0.0, 0.0, 0, 0, Vector2(0.156398, 0.318681), 0.549161, 0.549161, 0, 0, Vector2(0.616114, 0.538462), 0.49686, 0.49686, 0, 0, Vector2(1, 1), 2.16909, 0.0, 0, 0]
 point_count = 4
 
-[sub_resource type="Gradient" id="Gradient_prmhk"]
-colors = PackedColorArray(0.0352941, 0, 0.184314, 0.384314, 0.0352941, 0, 0.184314, 0.384314)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_nebvj"]
-gradient = SubResource("Gradient_prmhk")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yokjc"]
-texture = SubResource("GradientTexture2D_nebvj")
-
-[sub_resource type="LabelSettings" id="LabelSettings_n2wb3"]
-font_color = Color(1, 1, 1, 0.631373)
-
 [node name="TestStageStatesPlayer" type="Node3D"]
-script = SubResource("GDScript_qxl0n")
+script = ExtResource("1_ufg7y")
 
 [node name="Gameplay" type="Node3D" parent="."]
 
@@ -297,65 +240,16 @@ mesh = SubResource("BoxMesh_fmwkr")
 shape = SubResource("BoxShape3D_afq16")
 
 [node name="StatesPlayer" parent="Gameplay" node_paths=PackedStringArray("input_source") instance=ExtResource("4_6hgyu")]
-input_source = NodePath("../InputSource")
+input_source = NodePath("../../InputSource")
 
-[node name="InputSource" type="Node" parent="Gameplay"]
+[node name="InputSource" type="Node" parent="."]
 script = ExtResource("5_iqajd")
+mouse_sensitivity = 10.5
 mouse_horizontal_acceleration_curve = SubResource("Curve_mcqt1")
 mouse_vertical_acceleration_curve = SubResource("Curve_mcqt1")
 
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
+[node name="GameUi" parent="." instance=ExtResource("6_f4f27")]
+process_mode = 3
 
-[node name="Controls" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Controls"]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-theme_override_styles/panel = SubResource("StyleBoxTexture_yokjc")
-
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Controls/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 8
-theme_override_constants/margin_top = 2
-theme_override_constants/margin_right = 8
-theme_override_constants/margin_bottom = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Controls/PanelContainer/MarginContainer"]
-layout_mode = 2
-
-[node name="ControllerSchemeLabel" type="Label" parent="CanvasLayer/Controls/PanelContainer/MarginContainer/HBoxContainer"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-text = "RightStick: movement | LeftStick: camera | LB: run | RB: jump | [START: quit game]"
-label_settings = SubResource("LabelSettings_n2wb3")
-
-[node name="KbMouseSchemeLabel" type="Label" parent="CanvasLayer/Controls/PanelContainer/MarginContainer/HBoxContainer"]
-unique_name_in_owner = true
-visible = false
-layout_mode = 2
-text = "WASD: movement | Mouse: camera | Shift: run | Space:  jump | [ESC: quit game]"
-label_settings = SubResource("LabelSettings_n2wb3")
-
-[node name="VSeparator" type="VSeparator" parent="CanvasLayer/Controls/PanelContainer/MarginContainer/HBoxContainer"]
-modulate = Color(1, 1, 1, 0)
-self_modulate = Color(1, 1, 1, 0)
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="StateNameDisplay" type="Label" parent="CanvasLayer/Controls/PanelContainer/MarginContainer/HBoxContainer"]
-unique_name_in_owner = true
-layout_mode = 2
-
-[connection signal="input_type_changed" from="Gameplay/InputSource" to="." method="update_input_type"]
+[connection signal="close_settings_requested" from="GameUi" to="." method="_on_game_ui_close_settings_requested"]
+[connection signal="quit_game_requested" from="GameUi" to="." method="_on_game_ui_quit_game_requested"]

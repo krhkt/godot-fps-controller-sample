@@ -3,12 +3,12 @@
 [ext_resource type="Script" path="res://player.gd" id="1_8s7yn"]
 [ext_resource type="Script" path="res://scripts/player_movement_data.gd" id="2_dkeqt"]
 [ext_resource type="PackedScene" uid="uid://n6jdr231jhdx" path="res://crosshair.tscn" id="2_lgcpd"]
-[ext_resource type="Script" path="res://states/player_state_machine.gd" id="3_h70tx"]
-[ext_resource type="Script" path="res://states/idle_state.gd" id="4_n4myx"]
-[ext_resource type="Script" path="res://states/walk_state.gd" id="5_uaf2c"]
-[ext_resource type="Script" path="res://states/running_state.gd" id="6_0vkqn"]
-[ext_resource type="Script" path="res://states/jump_state.gd" id="7_0gkm3"]
-[ext_resource type="Script" path="res://states/fall_state.gd" id="8_8w8aa"]
+[ext_resource type="Script" path="res://player_states/player_state_machine.gd" id="3_h70tx"]
+[ext_resource type="Script" path="res://player_states/idle_state.gd" id="4_n4myx"]
+[ext_resource type="Script" path="res://player_states/walk_state.gd" id="5_uaf2c"]
+[ext_resource type="Script" path="res://player_states/running_state.gd" id="6_0vkqn"]
+[ext_resource type="Script" path="res://player_states/jump_state.gd" id="7_0gkm3"]
+[ext_resource type="Script" path="res://player_states/fall_state.gd" id="8_8w8aa"]
 
 [sub_resource type="Resource" id="Resource_loq0w"]
 script = ExtResource("2_dkeqt")

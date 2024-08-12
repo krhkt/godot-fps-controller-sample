@@ -25,18 +25,3 @@ func state_physics_process(delta: float) -> void:
 	if state_machine.change_to_idle(): return
 	if state_machine.change_to_jump(): return
 	if state_machine.change_to_running(): return
-	
-		#if not player.velocity:
-		#state_machine.change_to_idle()
-		#return
-	
-	#if not player.is_on_floor():
-		#state_machine.change_to_fall()
-		#return
-	
-	#if input_source.is_run_pressed:
-		#state_machine.change_to_running()
-		#return
-	#
-	#if player.tried_to_jump():
-		#state_machine.change_to_jump()
