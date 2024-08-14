@@ -6,7 +6,7 @@
 [ext_resource type="Material" uid="uid://drxgaaolnp7f6" path="res://assets/material_test_grid_platforms.tres" id="3_symbt"]
 [ext_resource type="PackedScene" uid="uid://uok0sv42638u" path="res://player.tscn" id="4_6hgyu"]
 [ext_resource type="Script" path="res://scripts/input_source.gd" id="5_iqajd"]
-[ext_resource type="PackedScene" uid="uid://ba5b26rq3e3de" path="res://game_ui.tscn" id="6_f4f27"]
+[ext_resource type="PackedScene" uid="uid://ba5b26rq3e3de" path="res://settings/game_ui.tscn" id="6_f4f27"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nymn7"]
 size = Vector3(100, 1, 100)

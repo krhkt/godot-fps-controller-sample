@@ -1,6 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://ba5b26rq3e3de"]
+[gd_scene load_steps=14 format=3 uid="uid://ba5b26rq3e3de"]
 
-[ext_resource type="Script" path="res://game_ui.gd" id="1_8aax4"]
+[ext_resource type="Script" path="res://settings/game_ui.gd" id="1_8aax4"]
+[ext_resource type="Script" path="res://settings/slider_label_update.gd" id="2_1v28a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d6mf6"]
 content_margin_left = 4.0
@@ -47,26 +48,6 @@ bg_color = Color(0.098555, 0.0946897, 0.134349, 0.819608)
 color = Color(0.487423, 0.4806, 0.89, 0.101961)
 thickness = 2
 
-[sub_resource type="GDScript" id="GDScript_bsrxw"]
-script/source = "extends HBoxContainer
-
-@onready var current_value = $CurrentValue
-
-
-func _on_controller_camera_slider_value_changed(value: float) -> void:
-	current_value.text = str(value)
-"
-
-[sub_resource type="GDScript" id="GDScript_w8fi1"]
-script/source = "extends HBoxContainer
-
-@onready var current_value = $CurrentValue
-
-
-func _on_mouse_sensitivity_value_changed(value: float) -> void:
-	current_value.text = str(value)
-"
-
 [sub_resource type="Gradient" id="Gradient_prmhk"]
 colors = PackedColorArray(0.0352941, 0, 0.184314, 0.384314, 0.0352941, 0, 0.184314, 0.384314)
 
@@ -83,6 +64,7 @@ font_color = Color(1, 1, 1, 0.631373)
 script = ExtResource("1_8aax4")
 
 [node name="ControlSettings" type="Control" parent="."]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -260,10 +242,11 @@ theme_override_constants/separation = 16
 layout_mode = 2
 text = "Controller Camera Sensitivity"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer" node_paths=PackedStringArray("current_value_label")]
 layout_mode = 2
 theme_override_constants/separation = 16
-script = SubResource("GDScript_bsrxw")
+script = ExtResource("2_1v28a")
+current_value_label = NodePath("CurrentValue")
 
 [node name="ControllerCameraSpeedValue" type="HSlider" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -297,10 +280,11 @@ theme_override_constants/separation = 16
 layout_mode = 2
 text = "Mouse Sensitivity"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer" node_paths=PackedStringArray("current_value_label")]
 layout_mode = 2
 theme_override_constants/separation = 16
-script = SubResource("GDScript_w8fi1")
+script = ExtResource("2_1v28a")
+current_value_label = NodePath("CurrentValue")
 
 [node name="MouseSensitivityValue" type="HSlider" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/HBoxContainer"]
 unique_name_in_owner = true
@@ -388,7 +372,6 @@ unique_name_in_owner = true
 layout_mode = 2
 
 [connection signal="pressed" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/HeaderMargin/HeaderContainer/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="drag_ended" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/HBoxContainer/ControllerCameraSpeedValue" to="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/HBoxContainer" method="_on_controller_camera_slider_drag_ended"]
-[connection signal="value_changed" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/HBoxContainer/ControllerCameraSpeedValue" to="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/HBoxContainer" method="_on_controller_camera_slider_value_changed"]
-[connection signal="value_changed" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/HBoxContainer/MouseSensitivityValue" to="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/HBoxContainer" method="_on_mouse_sensitivity_value_changed"]
+[connection signal="value_changed" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/HBoxContainer/ControllerCameraSpeedValue" to="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/HBoxContainer" method="_on_slider_value_changed"]
+[connection signal="value_changed" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/HBoxContainer/MouseSensitivityValue" to="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/HBoxContainer" method="_on_slider_value_changed"]
 [connection signal="pressed" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/QuitGameButton" to="." method="_on_quit_game_button_pressed"]
