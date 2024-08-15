@@ -1,7 +1,19 @@
-[gd_scene load_steps=14 format=3 uid="uid://ba5b26rq3e3de"]
+[gd_scene load_steps=16 format=3 uid="uid://ba5b26rq3e3de"]
 
 [ext_resource type="Script" path="res://settings/game_ui.gd" id="1_8aax4"]
-[ext_resource type="Script" path="res://settings/slider_label_update.gd" id="2_1v28a"]
+[ext_resource type="Script" path="res://settings/slider_label_field.gd" id="2_5kk2b"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ling7"]
+content_margin_left = 8.0
+content_margin_top = 4.0
+content_margin_right = 8.0
+content_margin_bottom = 4.0
+bg_color = Color(0.0475577, 0.0475576, 0.0475576, 0.960784)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_d6mf6"]
 content_margin_left = 4.0
@@ -27,6 +39,7 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 
 [sub_resource type="Theme" id="Theme_k3ixm"]
+Button/styles/normal = SubResource("StyleBoxFlat_ling7")
 HSlider/styles/slider = SubResource("StyleBoxFlat_d6mf6")
 OptionButton/constants/h_separation = 4
 OptionButton/constants/outline_size = 0
@@ -47,6 +60,8 @@ bg_color = Color(0.098555, 0.0946897, 0.134349, 0.819608)
 [sub_resource type="StyleBoxLine" id="StyleBoxLine_438qq"]
 color = Color(0.487423, 0.4806, 0.89, 0.101961)
 thickness = 2
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pkxl8"]
 
 [sub_resource type="Gradient" id="Gradient_prmhk"]
 colors = PackedColorArray(0.0352941, 0, 0.184314, 0.384314, 0.0352941, 0, 0.184314, 0.384314)
@@ -142,8 +157,9 @@ theme_override_styles/separator = SubResource("StyleBoxLine_438qq")
 
 [node name="BodyMargin" type="MarginContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 32
+theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
@@ -204,13 +220,12 @@ unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 item_count = 3
-selected = 1
 popup/item_0/text = "Default"
-popup/item_0/id = 1
-popup/item_1/text = "Inverterd"
+popup/item_0/id = 2
+popup/item_1/text = "Inverted"
 popup/item_1/id = 0
 popup/item_2/text = "Locked"
-popup/item_2/id = 0
+popup/item_2/id = 1
 
 [node name="FieldLabel2" type="Label" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/AxisContainer/AxisSettingsContainer"]
 layout_mode = 2
@@ -222,13 +237,12 @@ horizontal_alignment = 2
 unique_name_in_owner = true
 layout_mode = 2
 item_count = 3
-selected = 1
 popup/item_0/text = "Default"
-popup/item_0/id = 1
-popup/item_1/text = "Inverterd"
+popup/item_0/id = 2
+popup/item_1/text = "Inverted"
 popup/item_1/id = 0
 popup/item_2/text = "Locked"
-popup/item_2/id = 0
+popup/item_2/id = 1
 
 [node name="HSeparator2" type="HSeparator" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer"]
 layout_mode = 2
@@ -242,14 +256,16 @@ theme_override_constants/separation = 16
 layout_mode = 2
 text = "Controller Camera Sensitivity"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer" node_paths=PackedStringArray("current_value_label")]
+[node name="ControllerCameraSpeedField" type="HBoxContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer" node_paths=PackedStringArray("current_value_label", "slider")]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 16
-script = ExtResource("2_1v28a")
+script = ExtResource("2_5kk2b")
 current_value_label = NodePath("CurrentValue")
+slider = NodePath("ControllerCameraSpeedValue")
+string_format = "%2.1f"
 
-[node name="ControllerCameraSpeedValue" type="HSlider" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/HBoxContainer"]
-unique_name_in_owner = true
+[node name="ControllerCameraSpeedValue" type="HSlider" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/ControllerCameraSpeedField"]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 size_flags_vertical = 4
@@ -258,11 +274,11 @@ max_value = 2.1
 step = 0.1
 value = 1.1
 
-[node name="CurrentValue" type="Label" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/HBoxContainer"]
+[node name="CurrentValue" type="Label" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/ControllerCameraSpeedField"]
 layout_mode = 2
 text = "1"
 
-[node name="Button" type="Button" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/HBoxContainer"]
+[node name="Button" type="Button" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/ControllerCameraSpeedField"]
 visible = false
 layout_mode = 2
 text = "Interactive adjustment...
@@ -280,26 +296,28 @@ theme_override_constants/separation = 16
 layout_mode = 2
 text = "Mouse Sensitivity"
 
-[node name="HBoxContainer" type="HBoxContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer" node_paths=PackedStringArray("current_value_label")]
+[node name="MouseSensitivityField" type="HBoxContainer" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer" node_paths=PackedStringArray("current_value_label", "slider")]
+unique_name_in_owner = true
 layout_mode = 2
 theme_override_constants/separation = 16
-script = ExtResource("2_1v28a")
+script = ExtResource("2_5kk2b")
 current_value_label = NodePath("CurrentValue")
+slider = NodePath("MouseSensitivityValue")
+string_format = "%3.1f"
 
-[node name="MouseSensitivityValue" type="HSlider" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/HBoxContainer"]
-unique_name_in_owner = true
+[node name="MouseSensitivityValue" type="HSlider" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/MouseSensitivityField"]
 custom_minimum_size = Vector2(320, 0)
 layout_mode = 2
 size_flags_vertical = 4
 min_value = 0.5
-max_value = 50.0
+max_value = 20.0
 step = 0.5
 value = 5.0
 
-[node name="CurrentValue" type="Label" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/HBoxContainer"]
+[node name="CurrentValue" type="Label" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/MouseSensitivityField"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/HBoxContainer"]
+[node name="Button" type="Button" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/MouseSensitivityField"]
 visible = false
 layout_mode = 2
 text = "Interactive adjustment...
@@ -308,6 +326,11 @@ text = "Interactive adjustment...
 [node name="HSeparator4" type="HSeparator" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer"]
 layout_mode = 2
 theme_override_styles/separator = SubResource("StyleBoxLine_438qq")
+
+[node name="Spacer" type="HSeparator" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer"]
+layout_mode = 2
+size_flags_vertical = 10
+theme_override_styles/separator = SubResource("StyleBoxEmpty_pkxl8")
 
 [node name="QuitGameButton" type="Button" parent="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer"]
 layout_mode = 2
@@ -372,6 +395,11 @@ unique_name_in_owner = true
 layout_mode = 2
 
 [connection signal="pressed" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/HeaderMargin/HeaderContainer/CloseButton" to="." method="_on_close_button_pressed"]
-[connection signal="value_changed" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/HBoxContainer/ControllerCameraSpeedValue" to="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/HBoxContainer" method="_on_slider_value_changed"]
-[connection signal="value_changed" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/HBoxContainer/MouseSensitivityValue" to="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/HBoxContainer" method="_on_slider_value_changed"]
+[connection signal="item_selected" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/InputTypeContainer/InputTypeValue" to="." method="_on_input_type_value_item_selected"]
+[connection signal="item_selected" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/AxisContainer/AxisSettingsContainer/VerticalAxisValue" to="." method="_on_vertical_axis_value_item_selected"]
+[connection signal="item_selected" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/AxisContainer/AxisSettingsContainer/HorizontalAxisValue" to="." method="_on_horizontal_axis_value_item_selected"]
+[connection signal="value_changed" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/ControllerCameraSpeedField" to="." method="_on_controller_camera_speed_field_value_changed"]
+[connection signal="value_changed" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/ControllerCameraSpeedField/ControllerCameraSpeedValue" to="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/ControllerCameraContainer/ControllerCameraSpeedField" method="_on_slider_value_changed"]
+[connection signal="value_changed" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/MouseSensitivityField" to="." method="_on_mouse_sensitivity_field_value_changed"]
+[connection signal="value_changed" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/MouseSensitivityField/MouseSensitivityValue" to="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/MouseSensitivityContainer/MouseSensitivityField" method="_on_slider_value_changed"]
 [connection signal="pressed" from="ControlSettings/SettingsContainer/Panel/SettingsMargin/ContentsContainer/BodyMargin/SettingsBodyContainer/QuitGameButton" to="." method="_on_quit_game_button_pressed"]

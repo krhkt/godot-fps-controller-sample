@@ -12,7 +12,7 @@ var current_state_name: String:
 	get = _get_current_state_name
 
 @onready var player_camera := %PlayerCamera as Camera3D
-@onready var state_machine: PlayerStateMachine = %PlayerStateMachine
+@onready var state_machine := %PlayerStateMachine as PlayerStateMachine
 
 
 #region [ Godot API ]

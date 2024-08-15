@@ -97,8 +97,15 @@ light_energy = 4.0
 omni_range = 100.0
 omni_attenuation = 0.329877
 
+[node name="MainLight2" type="OmniLight3D" parent="Gameplay/LevelGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.8902, 1.85247, -40.0507)
+light_energy = 0.732
+omni_range = 500.0
+omni_attenuation = 0.329877
+
 [node name="Floor" type="StaticBody3D" parent="Gameplay/LevelGeo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/LevelGeo/Floor"]
 shape = SubResource("BoxShape3D_nymn7")
@@ -108,6 +115,7 @@ mesh = SubResource("BoxMesh_6vl4c")
 
 [node name="WallZ" type="StaticBody3D" parent="Gameplay/LevelGeo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 50)
+metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/LevelGeo/WallZ"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
@@ -119,6 +127,7 @@ mesh = SubResource("BoxMesh_omgjy")
 
 [node name="WallZ2" type="StaticBody3D" parent="Gameplay/LevelGeo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -50)
+metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/LevelGeo/WallZ2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
@@ -130,6 +139,7 @@ mesh = SubResource("BoxMesh_omgjy")
 
 [node name="WallX" type="StaticBody3D" parent="Gameplay/LevelGeo"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 50, 0, 0)
+metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/LevelGeo/WallX"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
@@ -141,6 +151,7 @@ mesh = SubResource("BoxMesh_omgjy")
 
 [node name="WallX2" type="StaticBody3D" parent="Gameplay/LevelGeo"]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -50, 0, 0)
+metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/LevelGeo/WallX2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 0)
@@ -152,6 +163,7 @@ mesh = SubResource("BoxMesh_omgjy")
 
 [node name="Roof" type="StaticBody3D" parent="Gameplay/LevelGeo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 20.5, 0)
+metadata/_edit_group_ = true
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/LevelGeo/Roof"]
 shape = SubResource("BoxShape3D_nymn7")
@@ -161,6 +173,7 @@ mesh = SubResource("BoxMesh_1nnn4")
 
 [node name="Ramp" type="StaticBody3D" parent="Gameplay/LevelGeo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 21.0547, 1, 14.983)
+metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/LevelGeo/Ramp"]
 transform = Transform3D(10, 0, 0, 0, 2, 0, 0, 0, 6, 0, 0, 0)
@@ -179,6 +192,7 @@ shape = SubResource("BoxShape3D_ue7p8")
 
 [node name="ElevationB" type="StaticBody3D" parent="Gameplay/LevelGeo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0.5, 6)
+metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/LevelGeo/ElevationB"]
 mesh = SubResource("BoxMesh_fmwkr")
@@ -188,6 +202,7 @@ shape = SubResource("BoxShape3D_afq16")
 
 [node name="BlockA" type="StaticBody3D" parent="Gameplay/LevelGeo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.9598, 0.912182, 21.9875)
+metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/LevelGeo/BlockA"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.587818, 0)
@@ -198,7 +213,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.587818, 0)
 shape = SubResource("ConvexPolygonShape3D_xjkiq")
 
 [node name="BlockA2" type="StaticBody3D" parent="Gameplay/LevelGeo"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 19.9659, 0.912182, -3.95421)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.0021, 0.912182, -14.1032)
+metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/LevelGeo/BlockA2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.587818, 0)
@@ -210,6 +226,7 @@ shape = SubResource("ConvexPolygonShape3D_xjkiq")
 
 [node name="BlockB" type="StaticBody3D" parent="Gameplay/LevelGeo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 20.0024, 0.912182, 8.04513)
+metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/LevelGeo/BlockB"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.587818, 0)
@@ -221,6 +238,7 @@ shape = SubResource("ConvexPolygonShape3D_xjkiq")
 
 [node name="ElevationA" type="StaticBody3D" parent="Gameplay/LevelGeo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 0, 14)
+metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/LevelGeo/ElevationA"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
@@ -232,6 +250,7 @@ shape = SubResource("ConvexPolygonShape3D_mvbsu")
 
 [node name="PlatformA" type="StaticBody3D" parent="Gameplay/LevelGeo"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.174486, 2.5, 15)
+metadata/_edit_group_ = true
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/LevelGeo/PlatformA"]
 mesh = SubResource("BoxMesh_fmwkr")
@@ -239,17 +258,42 @@ mesh = SubResource("BoxMesh_fmwkr")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/LevelGeo/PlatformA"]
 shape = SubResource("BoxShape3D_afq16")
 
+[node name="ElevationA2" type="StaticBody3D" parent="Gameplay/LevelGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 5.00635, -36.9694)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/LevelGeo/ElevationA2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_1nynp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/LevelGeo/ElevationA2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("ConvexPolygonShape3D_mvbsu")
+
+[node name="ElevationA3" type="StaticBody3D" parent="Gameplay/LevelGeo"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.8798, 2.06192, -36.9694)
+metadata/_edit_group_ = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Gameplay/LevelGeo/ElevationA3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+mesh = SubResource("BoxMesh_1nynp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Gameplay/LevelGeo/ElevationA3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+shape = SubResource("ConvexPolygonShape3D_mvbsu")
+
 [node name="StatesPlayer" parent="Gameplay" node_paths=PackedStringArray("input_source") instance=ExtResource("4_6hgyu")]
 input_source = NodePath("../../InputSource")
 
 [node name="InputSource" type="Node" parent="."]
 script = ExtResource("5_iqajd")
-mouse_sensitivity = 10.5
 mouse_horizontal_acceleration_curve = SubResource("Curve_mcqt1")
 mouse_vertical_acceleration_curve = SubResource("Curve_mcqt1")
 
 [node name="GameUi" parent="." instance=ExtResource("6_f4f27")]
 process_mode = 3
 
+[connection signal="input_type_changed" from="InputSource" to="." method="_on_input_type_changed"]
 [connection signal="close_settings_requested" from="GameUi" to="." method="_on_game_ui_close_settings_requested"]
 [connection signal="quit_game_requested" from="GameUi" to="." method="_on_game_ui_quit_game_requested"]
+[connection signal="settings_updated" from="GameUi" to="." method="_on_game_ui_settings_updated"]

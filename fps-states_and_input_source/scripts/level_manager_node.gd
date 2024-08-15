@@ -1,6 +1,8 @@
 class_name LevelManagerNode
 extends Node3D
 
+@export var settings_data: SettingsData
+
 @onready var player := $Gameplay/StatesPlayer as PlayerController
 @onready var gameplay := $Gameplay as Node3D
 @onready var input_source := $InputSource as InputSource
@@ -9,7 +11,12 @@ extends Node3D
 
 #region [ Godot API ]
 func _ready() -> void:
-	game_ui.update_control_scheme_display(player.input_source.input_scheme_in_use)
+	if not settings_data:
+		settings_data = SettingsData.new()
+		settings_data.set_from_input_source(player.input_source)
+	
+	game_ui.settings_data = settings_data
+	update_control_scheme_display()
 
 
 func _process(_delta: float) -> void:
@@ -76,9 +83,22 @@ func quit_game():
 #endregion
 
 
-func _on_game_ui_close_settings_requested():
+#region [ Signal handlers ]
+func _on_input_type_changed(_input_type: int) -> void:
+	update_control_scheme_display()
+
+
+func _on_game_ui_close_settings_requested() -> void:
 	close_settings()
 
 
-func _on_game_ui_quit_game_requested():
+func _on_game_ui_quit_game_requested()-> void:
 	quit_game()
+
+
+func _on_game_ui_settings_updated(_settings_data: SettingsData) -> void:
+	settings_data.apply_to_input_source(player.input_source)
+#endregion
+
+
+

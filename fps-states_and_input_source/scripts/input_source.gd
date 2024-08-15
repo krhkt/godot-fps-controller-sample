@@ -7,7 +7,13 @@ signal input_type_changed(input_type: int)
 enum InputType { 
 	AutoDetect,
 	Controller,
-	KeyboardMouse
+	KeyboardMouse,
+}
+
+enum AxisDirection {
+	Inverted = -1,
+	Locked = 0,
+	Default = 1,
 }
 
 # list of all actions that have to be added to the project
@@ -29,13 +35,12 @@ const ACTION_SETTINGS = &"settings"
 ##   - [b]KeyboardMouse[/b]: locks the input to be Keyboard and Mouse only
 @export var input_type: InputType = InputType.AutoDetect
 
-## The positive direction of horizontal axis of camera movement.
-@export_enum(&"Default:1", &"Inverted:-1", &"Locked:0")
-var look_horizontal_axis_direction := 1
-
 ## The positive direction of vertical axis of camera movement.
-@export_enum(&"Default:1", &"Inverted:-1", &"Locked:0")
-var look_vertical_axis_direction := 1
+@export var look_vertical_axis_direction := AxisDirection.Default
+
+## The positive direction of horizontal axis of camera movement.
+@export var look_horizontal_axis_direction := AxisDirection.Default
+
 
 ## Deadzone of the controller movement input: 
 ##    strafe_left, strafe_right, move_forward, move_backward.
