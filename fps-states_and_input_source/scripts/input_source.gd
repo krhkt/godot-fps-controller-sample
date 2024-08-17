@@ -33,7 +33,7 @@ const ACTION_SETTINGS = &"settings"
 ##   - [b]AutoDetect[/b]: will change between KBM and Controller based on input[br]
 ##   - [b]Controller[/b]: locks the input to be controller only[br]
 ##   - [b]KeyboardMouse[/b]: locks the input to be Keyboard and Mouse only
-@export var input_type: InputType = InputType.AutoDetect
+@export var input_type: InputType = InputType.AutoDetect : set = _set_input_type
 
 ## The positive direction of vertical axis of camera movement.
 @export var look_vertical_axis_direction := AxisDirection.Default
@@ -132,6 +132,16 @@ func was_jump_pressed_in(frames_window: float) -> bool:
 
 
 #region [ Getters / Setters ]
+func _set_input_type(value: InputType) -> void:
+	if value == input_type: return
+	
+	input_type = value
+	if input_type == InputType.AutoDetect: return
+	
+	input_scheme_in_use = input_type
+	input_type_changed.emit(input_scheme_in_use)
+
+
 func _get_is_mouse_captured() -> bool:
 	return Input.mouse_mode == Input.MOUSE_MODE_CAPTURED
 #endregion

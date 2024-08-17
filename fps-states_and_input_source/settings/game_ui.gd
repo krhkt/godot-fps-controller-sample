@@ -8,11 +8,16 @@ signal quit_game_requested()
 var settings_data: SettingsData : set = _set_settings_data
 var is_open: bool : get = _get_is_open
 
+var _input_scheme_in_use: InputSource.InputType
+
+#region [ Control scheme display ]
 @onready var settings_controls_label := %SettingsControlsLabel as Label
 @onready var controller_scheme_label := %ControllerSchemeLabel as Label
 @onready var kb_mouse_scheme_label := %KbMouseSchemeLabel as Label
 @onready var state_name_display := %StateNameDisplay as Label
 @onready var control_settings := $ControlSettings as Control
+#endregion
+
 
 #region [ settings inputs ]
 @onready var input_type_value := %InputTypeValue as OptionButton
@@ -27,9 +32,9 @@ var is_open: bool : get = _get_is_open
 func open_settings() -> bool:
 	if is_open: return false
 	
-	display_settings_controls()
 	input_type_value.grab_focus()
 	control_settings.visible = true
+	display_settings_controls()
 	return true
 
 
@@ -49,9 +54,16 @@ func update_control_scheme_display(input_type: int) -> void:
 		controller_scheme_label.visible = true
 	else:
 		kb_mouse_scheme_label.visible = true
+	
+	_input_scheme_in_use = input_type
+	display_settings_controls()
 
 
 func display_settings_controls() -> void:
+	if not is_open: return
+	
+	if _input_scheme_in_use == InputSource.InputType.KeyboardMouse: return
+	
 	settings_controls_label.visible = true
 	kb_mouse_scheme_label.visible = false
 	controller_scheme_label.visible = false
@@ -72,24 +84,18 @@ func _set_settings_data(value: SettingsData) -> void:
 #endregion
 
 
+## Applies the current settings_data to the settings controls
 func _update_inputs() -> void:
 	input_type_value.select(settings_data.input_type)
 	_select_by_id(vertical_axis_value,
 			_axis_direction_to_option_id(settings_data.vertical_axis_direction))
 	_select_by_id(horizontal_axis_value,
 			_axis_direction_to_option_id(settings_data.horizontal_axis_direction))
-	_update_controller_camera_field()
-	_update_mouse_sensitivity_field()
-
-
-func _update_controller_camera_field() -> void:
 	controller_camera_speed_field.value = settings_data.controller_camera_speed
-
-
-func _update_mouse_sensitivity_field() -> void:
 	mouse_sensitivity_field.value = settings_data.mouse_sensitivity
 
 
+## Helper function to set a OptionButton value by id
 func _select_by_id(option: OptionButton, id: int) -> void:
 	for i in range(0, option.item_count):
 		if option.get_item_id(i) == id:
@@ -103,6 +109,7 @@ func _select_by_id(option: OptionButton, id: int) -> void:
 func _option_id_to_axis_direction(value: int) -> InputSource.AxisDirection:
 	return (value - 1) as InputSource.AxisDirection
 
+
 # from: -1, 0, 1
 #   to:  0, 1, 2
 func _axis_direction_to_option_id(value: InputSource.AxisDirection) -> int:
@@ -110,7 +117,7 @@ func _axis_direction_to_option_id(value: InputSource.AxisDirection) -> int:
 #endregion
 
 
-#region [ Signal Handlers  ]
+#region [ Signal handlers  ]
 func _on_close_button_pressed() -> void:
 	close_settings_requested.emit()
 

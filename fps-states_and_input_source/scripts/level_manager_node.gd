@@ -99,6 +99,3 @@ func _on_game_ui_quit_game_requested()-> void:
 func _on_game_ui_settings_updated(_settings_data: SettingsData) -> void:
 	settings_data.apply_to_input_source(player.input_source)
 #endregion
-
-
-

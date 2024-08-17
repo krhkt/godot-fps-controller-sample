@@ -1,9 +1,9 @@
 class_name SettingsData
 extends Resource
 
-@export var input_type: InputSource.InputType
-@export var horizontal_axis_direction: InputSource.AxisDirection
-@export var vertical_axis_direction: InputSource.AxisDirection
+@export var input_type := InputSource.InputType.AutoDetect
+@export var horizontal_axis_direction := InputSource.AxisDirection.Default
+@export var vertical_axis_direction := InputSource.AxisDirection.Default
 @export var controller_camera_speed: float
 @export var mouse_sensitivity: float
 
